@@ -1,4 +1,6 @@
-FROM python:3.6
+FROM joyzoursky/python-chromedriver:3.6-selenium 
+LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
+
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo "XKBMODEL=\"pc105\"\n \
@@ -6,11 +8,29 @@ RUN echo "XKBMODEL=\"pc105\"\n \
           XKBVARIANT=\"\"\n \
           XKBOPTIONS=\"\"" > /etc/default/keyboard
 		  
-LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
-
-RUN apt-get update && apt-get install -y \
-		locales \
-		wget
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         build-essential \
+         cmake \
+         git \
+         curl \
+         vim \
+         ca-certificates \
+         apt-utils \
+         man \
+         tmux \
+         less \
+         wget \
+         iputils-ping \
+         software-properties-common \
+         tzdata \
+         locales \
+         openssh-server \
+         xauth \
+		 unzip \
+         rsync &&\
+    rm -rf /var/lib/apt/lists/*
+	
+	
 RUN locale-gen ko_KR.UTF-8
 ENV LANG="ko_KR.UTF-8" LANGUAGE="ko_KR:en" LC_ALL="ko_KR.UTF-8"
 
@@ -27,6 +47,7 @@ RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
 # set display port to avoid crash
 ENV DISPLAY=:99
+
 
 # install selenium
 RUN apt-get update && apt-get install -y --no-install-recommends \
