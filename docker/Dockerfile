@@ -1,34 +1,43 @@
-FROM python:3.6
+FROM ubuntu:18.04
+LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
+
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo "XKBMODEL=\"pc105\"\n \
           XKBLAYOUT=\"us\"\n \
           XKBVARIANT=\"\"\n \
           XKBOPTIONS=\"\"" > /etc/default/keyboard
-		  
-LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
-
-RUN apt-get update && apt-get install -y \
-		locales \
-		wget
+          
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         build-essential \
+         cmake \
+         git \
+         curl \
+         vim \
+         ca-certificates \
+         apt-utils \
+         man \
+         tmux \
+         less \
+         wget \
+         iputils-ping \
+         software-properties-common \
+         tzdata \
+         locales \
+         openssh-server \
+         xauth \
+		 unzip \
+         rsync &&\
+    rm -rf /var/lib/apt/lists/*
+    
 RUN locale-gen ko_KR.UTF-8
 ENV LANG="ko_KR.UTF-8" LANGUAGE="ko_KR:en" LC_ALL="ko_KR.UTF-8"
+RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
+     chmod +x ~/miniconda.sh && \
+     ~/miniconda.sh -b -p /opt/conda && \     
+     rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
 
-# install google chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get -y update
-RUN apt-get install -y google-chrome-stable
-
-# install chromedriver
-RUN apt-get install -yqq unzip
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
-
-# set display port to avoid crash
-ENV DISPLAY=:99
-
-# install selenium
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         libssl-dev \
@@ -39,11 +48,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libldap2-dev \
         python3.6-dev
 
+RUN conda install python=3.6
 RUN pip install --upgrade setuptools pip
 RUN pip install tqdm selenium bs4 superset pandas==0.23.4 sqlalchemy==1.2.18
 RUN rm -rf ~/.cache/pip
+
 RUN mkdir dash && cd dash && \
 		git clone https://github.com/simonjisu/autoupdate.git
+RUN cd autoupdate/src && \
+	wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
+RUN unzip chromedriver_linux64.zip
+
+
 
 ENV PYTHONUNBUFFERED=1
 WORKDIR /root
