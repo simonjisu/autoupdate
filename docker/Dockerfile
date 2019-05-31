@@ -7,6 +7,10 @@ RUN echo "XKBMODEL=\"pc105\"\n \
           XKBOPTIONS=\"\"" > /etc/default/keyboard
 		  
 LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
+
+RUN apt-get update && apt-get install -y \
+		locales \
+		wget
 RUN locale-gen ko_KR.UTF-8
 ENV LANG="ko_KR.UTF-8" LANGUAGE="ko_KR:en" LC_ALL="ko_KR.UTF-8"
 
