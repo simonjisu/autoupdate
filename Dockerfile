@@ -59,6 +59,7 @@ RUN . activate venv
 RUN pip install --upgrade setuptools pip
 RUN pip install tqdm selenium bs4 superset pandas==0.23.4 sqlalchemy==1.2.18
 RUN rm -rf ~/.cache/pip
+
 RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb
 RUN dpkg -i /chrome.deb || apt-get install -yf
 RUN rm /chrome.deb
