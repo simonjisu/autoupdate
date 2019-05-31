@@ -92,7 +92,7 @@ if __name__ == "__main__":
     parser.add_argument("-l","--lec_ids", nargs="+",
         help="lecture ids to update 'all' or list of number, default is ['all']")
     parser.add_argument("-del","--delopt", type=int,
-        help="delete option [1-all, 2-secure, 3-database]")
+        help="delete option [0-secure, 1-database, 2-all]")
     parser.add_argument("-sv","--save", action="store_true",
         help="save install data to pickle file")
     args = parser.parse_args()

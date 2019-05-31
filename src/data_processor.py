@@ -59,7 +59,7 @@ class DataProcessor(object):
 
     def launch_driver(self, login_info):
         
-        driver = webdriver.Chrome(str(Path(self.driver_path)/"chromedriver.exe"))
+        driver = webdriver.Chrome(str(Path(self.driver_path)/"chromedriver.exe"), port=4444)
         driver.implicitly_wait(3)
         driver.get(self.edwith_site + "/neoid/emailLogin")
         driver.find_element_by_name('email').send_keys(login_info.email)
