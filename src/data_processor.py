@@ -58,8 +58,13 @@ class DataProcessor(object):
             return driver, update_dict
 
     def launch_driver(self, login_info):
-        
-        driver = webdriver.Chrome(str(Path(self.driver_path)/"chromedriver.exe"), port=4444)
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--window-size=1420,1080')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('port=4444')
+        driver = webdriver.Chrome(str(Path(self.driver_path)/"chromedriver.exe"), options=chrome_options)
         driver.implicitly_wait(3)
         driver.get(self.edwith_site + "/neoid/emailLogin")
         driver.find_element_by_name('email').send_keys(login_info.email)
