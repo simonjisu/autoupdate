@@ -29,14 +29,18 @@ def main(args):
         del_list = [secure_path, database_path]
         if args.delopt == 2:
             for x in del_list:
-                x.unlink()
-                x.parent.rmdir()
+                try:
+                    x.unlink()
+                    x.parent.rmdir()
+                except:
+                    x.parent.rmdir()
         else:
-            del_list[args.delopt].unlink()
-            del_list[args.delopt].parent.rmdir()
-        
-        database_path.unlink()
-        database_path.parent.rmdir()
+            try:
+                del_list[args.delopt].unlink()
+                del_list[args.delopt].parent.rmdir()
+            except:
+                del_list[args.delopt].parent.rmdir()
+
         print(f"removed {args.login_path}")
     elif args.opt in ["new_init", "update_dayenroll", "update_user"]:
         if args.opt == "new_init":
@@ -110,8 +114,8 @@ if __name__ == "__main__":
         help="save install data to pickle file")
     parser.add_argument("-ld","--load", action="store_true",
         help="load data from pickle file")
-    parser.add_argument("-lp","--load_path", type=str, default="."
-        help="insert pickle file path, when opt=='init_new'")
+    parser.add_argument("-lp","--load_path", type=str, default=".",
+        help="insert pickle file path, when opt == 'init_new'")
     parser.add_argument("-em", "--email", type=str,
         help="if opt == 'new_init', can give email information to skip insert it")
     parser.add_argument("-pw", "--password", type=str,
