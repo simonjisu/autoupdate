@@ -29,14 +29,18 @@ def main(args):
         del_list = [secure_path, database_path]
         if args.delopt == 2:
             for x in del_list:
-                x.unlink()
-                x.parent.rmdir()
+                try:
+                    x.unlink()
+                    x.parent.rmdir()
+                except:
+                    x.parent.rmdir()
         else:
-            del_list[args.delopt].unlink()
-            del_list[args.delopt].parent.rmdir()
-        
-        database_path.unlink()
-        database_path.parent.rmdir()
+            try:
+                del_list[args.delopt].unlink()
+                del_list[args.delopt].parent.rmdir()
+            except:
+                del_list[args.delopt].parent.rmdir()
+
         print(f"removed {args.login_path}")
     elif args.opt in ["new_init", "update_dayenroll", "update_user"]:
         if args.opt == "new_init":
