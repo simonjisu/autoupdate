@@ -273,7 +273,7 @@ class DataProcessor(object):
                     i,
                     kwargs['lec_id'],
                     hash_email,  # hashed id for email
-                    *[int(tag.text) if i == 0 else str(tag.text) for i, tag in enumerate(x.find_all("td")[2:])]
+                    *[int(tag.text) if i == 0 else str(tag.text).replace(".", "-") for i, tag in enumerate(x.find_all("td")[2:])]
                 ]
             else:
                 res = None
