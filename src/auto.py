@@ -48,16 +48,28 @@ class Autoupdate(object):
          - max_show
          - save
         """
-        driver, lecinfo, lecdata = self.data_processor.main(
-            opt="new_init", 
-            login_info=kwargs["login"], 
-            max_show=kwargs["max_show"], 
-            save=kwargs["save"])
-        driver.quit()
-        self.db_processor.delete_table()
-        self.db_processor.create_table()
-        self.db_processor.process_values(opt="new_init", lecinfo=lecinfo, lecdata=lecdata)
-        print("All DB install is Done!")
+        if kwargs["load"]:
+            from pathlib import Path
+            import pickle
+            with (Path(kwargs["load_path"]) / 'lecinfo.pickle').open(mode='rb') as handle:
+                    lecinfo = pickle.load(handle)
+            with (Path(kwargs["load_path"]) / 'lecdata.pickle').open(mode='rb') as handle:
+                lecdata = pickle.load(handle)
+            self.db_processor.process_values(opt="new_init", 
+                lecinfo=kawrgs["lecinfo"], 
+                lecdata=kwargs["lecdata"])
+        else:
+            driver, lecinfo, lecdata = self.data_processor.main(
+                opt="new_init", 
+                login_info=kwargs["login"], 
+                max_show=kwargs["max_show"], 
+                save=kwargs["save"])
+            driver.quit()
+            self.db_processor.delete_table()
+            self.db_processor.create_table()
+
+            self.db_processor.process_values(opt="new_init", lecinfo=lecinfo, lecdata=lecdata)
+            print("All DB install is Done!")
     
     def update(self, **kwargs):
         """

@@ -45,16 +45,29 @@ def main(args):
             if not secure_path.parent.exists():
                 secure_path.parent.mkdir()
             if not secure_path.exists():
-                email = input("등록할 이메일을 입력: ")
-                password = input("등록할 비밀번호 입력: ")
+                if (args.email is None) and (args.password is None):
+                    email = input("등록할 이메일을 입력: ")
+                    password = input("등록할 비밀번호 입력: ")
+                else:
+                    email = args.email
+                    password = args.password
                 with secure_path.open(mode="w") as handle:
                     print(f"email='{email}'", file=handle)
                     print(f"password='{password}'", file=handle)
             login = LOGIN(args.login_path)
-            auto.init_program(
-                login=login, 
-                max_show=args.max_show, 
-                save=args.save)
+            if args.load:
+                auto.init_program(
+                    login=login, 
+                    load=args.load,
+                    load_path=args.load_path,
+                    lecinfo=lecinfo,
+                    lecdata=lecdata)
+            else:
+                auto.init_program(
+                    login=login, 
+                    max_show=args.max_show, 
+                    save=args.save,
+                    load=args.load)
         elif args.opt in ["update_dayenroll", "update_user"]:
             if args.lec_ids is None:
                 lec_ids = ["all"]
@@ -95,5 +108,14 @@ if __name__ == "__main__":
         help="delete option [0-secure, 1-database, 2-all]")
     parser.add_argument("-sv","--save", action="store_true",
         help="save install data to pickle file")
+    parser.add_argument("-ld","--load", action="store_true",
+        help="load data from pickle file")
+    parser.add_argument("-lp","--load_path", type=str, default="."
+        help="insert pickle file path, when opt=='init_new'")
+    parser.add_argument("-em", "--email", type=str,
+        help="if opt == 'new_init', can give email information to skip insert it")
+    parser.add_argument("-pw", "--password", type=str,
+        help="if opt == 'new_init', can give password information to skip insert it")
+    
     args = parser.parse_args()
     main(args)
