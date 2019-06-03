@@ -21,6 +21,8 @@ docker -i -t -p 8088:8088 -p 4444:4444 simonjisu/autoupdate
 
 ## installation
 
+This installation is for Internal use, however you can modify codes in `src` directory for your own purpose.
+
 ```
 wget https://gist.githubusercontent.com/simonjisu/3cf5d858746b11228ff24a09dbf4c832/raw/385a5b33f8617ec553dc8f9aaf0f6bd52a924135/autoupdate_installer.sh
 ```
