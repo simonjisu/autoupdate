@@ -2,6 +2,23 @@
 
  - version: 0.1
 
+
+## Docker 
+
+This docker is based on `Ubuntu 18.04` and installed `python3.6` + `seleuim` 
+
+After installed docker, pull this image like below
+
+```
+docker pull simonjisu/autoupdate
+```
+
+and run the docker. port `8088` is for superset basic port you can ignore it.
+
+```
+docker -i -t -p 8088:8088 -p 4444:4444 simonjisu/autoupdate
+```
+
 ## installation
 
 ```
