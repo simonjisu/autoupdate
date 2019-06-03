@@ -43,7 +43,9 @@ class DataProcessor(object):
             
         if opt == "new_init":
             self.scroll_leclist(driver)
+            print(driver.session_id)
             lecinfo = self.get_lecinfo(driver, type_="info")
+            print(driver.session_id)
             lecdata = self.get_lecdata(driver, lecinfo, type_="data", max_show=kwargs["max_show"])
             if kwargs["save"]:
                 with open('lecinfo.pickle', 'wb') as handle:
@@ -54,7 +56,6 @@ class DataProcessor(object):
             return driver, lecinfo, lecdata        
         elif (opt == "update_dayenroll") or (opt == "update_user"):
             update_dict = self.get_update_lecdata(opt, driver, kwargs["update_src"], type_="data", max_show=kwargs["max_show"])
-            driver.quit()
             return driver, update_dict
 
     def launch_driver(self, login_info):
