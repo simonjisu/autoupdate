@@ -110,8 +110,8 @@ if __name__ == "__main__":
         help="save install data to pickle file")
     parser.add_argument("-ld","--load", action="store_true",
         help="load data from pickle file")
-    parser.add_argument("-lp","--load_path", type=str, default="."
-        help="insert pickle file path, when opt=='init_new'")
+    parser.add_argument("-lp","--load_path", type=str, default=".",
+        help="insert pickle file path, when opt == 'init_new'")
     parser.add_argument("-em", "--email", type=str,
         help="if opt == 'new_init', can give email information to skip insert it")
     parser.add_argument("-pw", "--password", type=str,
