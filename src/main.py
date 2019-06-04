@@ -100,26 +100,26 @@ if __name__ == "__main__":
         help="new_init, update_dayenroll, update_user, show")
     parser.add_argument("-bp", "--base_path", type=str, default=".",
         help="basic path of this program, default is current path '.' ")
-    parser.add_argument("-dp", "--driver_path", type=str, default="./src",
-        help="chrome driver path of this program, default is './src' ")
+    parser.add_argument("-dp", "--driver_path", type=str, default="/usr/bin",
+        help="chrome driver path of this program, default is '/usr/bin' ")
     parser.add_argument("-lgp", "--login_path", type=str, default=".secure/LOGIN.py",
         help="login information in dir '.secure/LOGIN.py'")
     parser.add_argument("-ms", "--max_show", type=int, default=1000,
         help="max offset when visit student list table url")
     parser.add_argument("-l","--lec_ids", nargs="+",
-        help="lecture ids to update 'all' or list of number, default is ['all']")
+        help="[update option] lecture ids to update 'all' or list of number, default is ['all']")
     parser.add_argument("-del","--delopt", type=int,
         help="delete option [0-secure, 1-database, 2-all]")
     parser.add_argument("-sv","--save", action="store_true",
-        help="save install data to pickle file")
+        help="[install option] save install data to pickle file")
     parser.add_argument("-ld","--load", action="store_true",
-        help="load data from pickle file")
+        help="[install option] load data from pickle file")
     parser.add_argument("-lp","--load_path", type=str, default=".",
-        help="insert pickle file path, when opt == 'init_new'")
+        help="[install option] insert pickle file path")
     parser.add_argument("-em", "--email", type=str,
-        help="if opt == 'new_init', can give email information to skip insert it")
+        help="[install option] can give email information to skip insert it")
     parser.add_argument("-pw", "--password", type=str,
-        help="if opt == 'new_init', can give password information to skip insert it")
+        help="[install option] can give password information to skip insert it")
     
     args = parser.parse_args()
     main(args)
