@@ -194,15 +194,15 @@ class DataProcessor(object):
         date_to_find = dt.strptime(date, day_fmt) - timedelta(days=1)
         try_num = 0
         while try_num <= 3:
-            table_url = data_processor.edwith_site + page + "/manage/studentManage/list" + f"?offset={try_num*max_show}&max={max_show}"
-            soup = data_processor.driver_process(driver, table_url)
+            table_url = self.edwith_site + page + "/manage/studentManage/list" + f"?offset={try_num*max_show}&max={max_show}"
+            soup = self.driver_process(driver, table_url)
             table = soup.find("tbody")
             rows = table.find_all("tr")
 
             update_datas = []
             cnt = 0
             for r in rows:
-                data = data_processor.find_data(r, 0, type_, lec_id=lec_id)
+                data = self.find_data(r, 0, type_, lec_id=lec_id)
                 if data is not None:
                     if dt.strptime(data[-1], day_fmt) <= date_to_find:
                         try_num = 999
