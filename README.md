@@ -5,7 +5,7 @@
 
 ## Docker 
 
-This docker is based on `Ubuntu 18.04` and installed `python3.6` + `seleuim` 
+This docker is based on `Ubuntu 18.04` and installed `python3.6` + `seleuim` + `superset`
 
 After installed docker, pull this image like below
 

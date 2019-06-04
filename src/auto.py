@@ -81,7 +81,7 @@ class Autoupdate(object):
          - lec_ids: 'all'(string) or list of lecture number
         
         """
-        conn = db_processor.create_connection()
+        conn = self.db_processor.create_connection()
         with conn:
             update_src = self.db_processor.get_update_src(
                 opt=kwargs["opt"], 
