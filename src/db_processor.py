@@ -1,4 +1,4 @@
-from collection import defaultdict
+from collections import defaultdict
 from tqdm import tqdm
 import sys
 import sqlite3
