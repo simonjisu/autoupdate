@@ -158,7 +158,7 @@ class DataProcessor(object):
          - ids
         """
         update_dict = {"insert": defaultdict(list), "update": defaultdict(list)}
-        day_fmt = "%Y.%m.%d"
+        day_fmt = "%Y-%m-%d"
         i = update_src["lasttable_id"] + 1
         for lec_id, page, date, idxs in tqdm(zip(update_src["lec_ids"], 
                                                  update_src["pages"], 
