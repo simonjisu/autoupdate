@@ -114,7 +114,8 @@ class DataProcessor(object):
                 driver.get(self.edwith_site + page)
                 driver.implicitly_wait(3)
                 time.sleep(0.5)
-                if driver.find_element_by_id("__USER_ROLE").get_property("value") == "ROLE_PROFESSOR":
+				role = driver.find_element_by_id("__USER_ROLE").get_property("value")
+                if (role == "ROLE_PROFESSOR") or (role == "ROLE_ASSISTANT"):
                     lecinfo['access'][i] = 1
             except:
                 continue
