@@ -21,7 +21,7 @@ def main(args):
             print(e)
         print("Install the program first")
     elif args.opt == "debug":
-        pass
+        print(args.lec_ids)
     elif args.opt == "del_program":
         assert args.delopt is not None, "must insert delete option: -del [0-secure, 1-database, 2-all]"
         secure_path = Path(args.login_path)

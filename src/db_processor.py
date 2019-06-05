@@ -91,7 +91,7 @@ class DatabaseProcessor(object):
         """
         if lec_ids[0] == "all":
             lec_ids = lec_ids[0]
-        elif lec_ids != [] and sum(list(map(lambda x : isinstance(x, int), lec_ids))):
+        elif lec_ids != []:
             lec_ids = list(map(lambda x: int(x), lec_ids))
         else:
             assert False, "must be a list that contain 'all' or lecture numbers" 
