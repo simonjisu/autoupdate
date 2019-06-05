@@ -34,6 +34,7 @@ def main(args):
                     x.parent.rmdir()
                 except:
                     x.parent.rmdir()
+            print("removed all")
         else:
             try:
                 del_list[args.delopt].unlink()
@@ -41,7 +42,7 @@ def main(args):
             except:
                 del_list[args.delopt].parent.rmdir()
 
-        print(f"removed {args.login_path}")
+            print(f"removed {str(del_list[args.delopt])}")
     elif args.opt in ["new_init", "update_dayenroll", "update_user"]:
         if args.opt == "new_init":
             secure_path = Path(args.login_path)
