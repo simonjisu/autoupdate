@@ -45,7 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libssl-dev \
         libffi-dev \
         libsasl2-dev \
-        libldap2-dev \
+        libldap2-dev
 
 RUN pip install --upgrade setuptools pip
 RUN pip install tqdm selenium bs4 superset pandas==0.23.4 sqlalchemy==1.2.18
