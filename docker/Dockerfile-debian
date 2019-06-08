@@ -2,7 +2,8 @@ FROM arm32v7/debian:stretch-slim
 LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
 
 ENV TZ=Asia/Seoul
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN echo $TZ > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 RUN echo "XKBMODEL=\"pc105\"\n \
           XKBLAYOUT=\"us\"\n \
           XKBVARIANT=\"\"\n \
