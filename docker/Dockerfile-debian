@@ -26,8 +26,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
          locales \
          openssh-server \
          xauth \
-		 gpg-agent \
-		 unzip \
+	 gpg-agent \
+         unzip \
          rsync &&\
     rm -rf /var/lib/apt/lists/*
     
@@ -39,6 +39,7 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
      rm ~/miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
 
+RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         libssl-dev \
