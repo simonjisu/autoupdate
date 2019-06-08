@@ -39,7 +39,7 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
      rm ~/miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
 
-RUN add-apt-repository ppa:deadsnakes/ppa
+RUN add-apt-repository ppa:jonathonf/python-3.6
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         libssl-dev \
