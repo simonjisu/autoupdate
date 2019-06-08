@@ -1,0 +1,65 @@
+FROM debian:stretch-slim 
+LABEL maintainer "Simon Jang <simonjisu@gmail.com>"
+
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN echo "XKBMODEL=\"pc105\"\n \
+          XKBLAYOUT=\"us\"\n \
+          XKBVARIANT=\"\"\n \
+          XKBOPTIONS=\"\"" > /etc/default/keyboard
+          
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         build-essential \
+         cmake \
+         git \
+         curl \
+         vim \
+         ca-certificates \
+         apt-utils \
+         man \
+         tmux \
+         less \
+         wget \
+         iputils-ping \
+         software-properties-common \
+         tzdata \
+         locales \
+         openssh-server \
+         xauth \
+	 gpg-agent \
+         unzip \
+         rsync &&\
+    rm -rf /var/lib/apt/lists/*
+    
+RUN locale-gen ko_KR.UTF-8
+ENV LANG="ko_KR.UTF-8" LANGUAGE="ko_KR:en" LC_ALL="ko_KR.UTF-8"
+RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
+     chmod +x ~/miniconda.sh && \
+     ~/miniconda.sh -b -p /opt/conda && \     
+     rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
+RUN conda install python=3.6
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        libssl-dev \
+        libffi-dev \
+        libsasl2-dev \
+        libldap2-dev
+
+RUN pip install --upgrade setuptools pip
+RUN pip install tqdm selenium bs4 superset pandas==0.23.4 sqlalchemy==1.2.18
+RUN rm -rf ~/.cache/pip
+
+# install google chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+RUN apt-get -y update
+RUN apt-get install -y google-chrome-stable
+
+# install chromedriver
+RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/
+
+ENV PYTHONUNBUFFERED=1
+WORKDIR /root
