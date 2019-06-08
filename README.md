@@ -16,10 +16,10 @@ $ docker pull simonjisu/autoupdate
 and run the docker. port `8088` is for superset basic port you can ignore it.
 
 ```
-$ docker -i -t -p 8088:8088 --name [name] -v [data-volume] simonjisu/autoupdate
+$ docker run -i -t -p 8088:8088 --name [name] -v [data-volume] simonjisu/autoupdate
 ```
 
-there is another version for debian linux, pull the docker using tag "debian"
+there is another version for arm32v7/debian, pull the docker using tag "arm-debian"
 
 ```
 $ docker pull simonjisu/autoupdate:debian
