@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
          openssh-server \
          xauth \
 	 gpg-agent \
+	 gnupg2 \
          unzip \
          rsync &&\
     rm -rf /var/lib/apt/lists/*
