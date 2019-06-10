@@ -1,6 +1,6 @@
 # AutoUpdate
 
- - version: 0.1
+- version: 0.1
 
 
 ## Docker 
@@ -19,15 +19,15 @@ and run the docker. port `8088` is for superset basic port you can ignore it.
 $ docker run -i -t -p 8088:8088 --name [name] -v [data-volume] simonjisu/autoupdate
 ```
 
-there is another version for arm32v7/debian, pull the docker using tag "debian"
+there is another version for arm32v7/debian, pull the docker using tag "arm32v7-debian"
 
 ```
-$ docker pull simonjisu/autoupdate:debian
+$ docker pull simonjisu/autoupdate:arm32v7-debian
 ```
 
 ## installation
 
-This installation is for Internal use, however you can modify codes in `src` directory for your own purpose.
+This installation is for Internal user, however you can modify codes in `src` directory for your own purpose.
 
 ```
 wget https://gist.githubusercontent.com/simonjisu/3cf5d858746b11228ff24a09dbf4c832/raw/385a5b33f8617ec553dc8f9aaf0f6bd52a924135/autoupdate_installer.sh

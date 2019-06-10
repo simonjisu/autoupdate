@@ -9,26 +9,26 @@ RUN echo "XKBMODEL=\"pc105\"\n \
           XKBOPTIONS=\"\"" > /etc/default/keyboard
           
 RUN apt-get update && apt-get install -y --no-install-recommends \
-         build-essential \
-         cmake \
-         git \
-         curl \
-         vim \
-         ca-certificates \
-         apt-utils \
-         man \
-         tmux \
-         less \
-         wget \
-         iputils-ping \
-         software-properties-common \
-         tzdata \
-         locales \
-         openssh-server \
-         xauth \
-	 gpg-agent \
-	 unzip \
-         rsync &&\
+        build-essential \
+        cmake \
+        git \
+        curl \
+        vim \
+        ca-certificates \
+        apt-utils \
+        man \
+        tmux \
+        less \
+        wget \
+        iputils-ping \
+        software-properties-common \
+        tzdata \
+        locales \
+        openssh-server \
+        xauth \
+	    gpg-agent \
+	    unzip \
+        rsync &&\
     rm -rf /var/lib/apt/lists/*
     
 RUN locale-gen ko_KR.UTF-8
