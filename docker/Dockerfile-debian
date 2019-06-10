@@ -40,12 +40,12 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen ko_KR.UTF-8
 ENV LANG="ko_KR.UTF-8" LANGUAGE="ko_KR:en" LC_ALL="ko_KR.UTF-8"
-RUN wget https://gist.githubusercontent.com/simonjisu/965bf3a284259104313a8f19f0c5ad55/raw/f82635ae999400f161028a2033fa5ec5a8f62687/install_python3.sh
-RUN chmod +x ~/install_python3.sh && ~/install_python3.sh
+RUN cd && wget https://gist.githubusercontent.com/simonjisu/965bf3a284259104313a8f19f0c5ad55/raw/f82635ae999400f161028a2033fa5ec5a8f62687/install_python3.sh
+RUN cd && chmod +x ~/install_python3.sh && ~/install_python3.sh
 ENV PYTHONPATH="/usr/local/bin:$PATH"
 RUN update-alternatives --install /usr/local/bin/python python /usr/local/bin/python3.6 1
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
+RUN cd && rm Python-3.6.5.tar.xz && rm install_python3.sh && rm -r Python-3.6.5
+RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		libffi-dev \
 		libsasl2-dev \
@@ -53,8 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install tqdm selenium bs4 superset pandas==0.23.4 sqlalchemy==1.2.18
 RUN rm -rf ~/.cache/pip
-
-# install chrome
+# install google chrome
 RUN apt-get install -y --no-install-recommends \
 		xvfb \
 		libasound2 \
@@ -87,5 +86,6 @@ RUN dpkg -i ch-codecs74-ubuntu1604-armhf.deb
 RUN dpkg -i ch-codecsextra74-ubuntu1604-armhf.deb
 RUN dpkg -i ch-browser74-ubuntu1604-armhf.deb
 RUN dpkg -i ch-driver74-ubuntu1604-armhf.deb
+
 ENV PYTHONUNBUFFERED=1
 WORKDIR /root
