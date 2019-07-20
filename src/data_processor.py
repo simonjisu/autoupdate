@@ -194,13 +194,13 @@ class DataProcessor(object):
         lec_id, page, date = src
         date_to_find = dt.strptime(date, day_fmt) - timedelta(days=1)
         try_num = 0
+        update_datas = []
         while try_num <= 3:
             table_url = self.edwith_site + page + "/manage/studentManage/list" + f"?offset={try_num*max_show}&max={max_show}"
             soup = self.driver_process(driver, table_url)
             table = soup.find("tbody")
             rows = table.find_all("tr")
 
-            update_datas = []
             cnt = 0
             for r in rows:
                 data = self.find_data(r, 0, type_, lec_id=lec_id)
