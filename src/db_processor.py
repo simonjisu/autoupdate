@@ -198,8 +198,8 @@ class DatabaseProcessor(object):
                 query = """UPDATE {} SET ({})=({}) WHERE id=?;""" if update else """INSERT INTO {}({}) VALUES ({});"""
                 query = query.format(table_name, columns, values)
             elif opt == "update_user":
-                columns = ",".join(db_processor.update_person_columns[1:]) 
-                values = ",".join(["?"]*len(db_processor.update_person_columns[1:]))
+                columns = ",".join(self.update_person_columns[1:]) 
+                values = ",".join(["?"]*len(self.update_person_columns[1:]))
                 query = """UPDATE {} SET ({})=({}) WHERE id=?;"""
                 query = query.format(table_name, columns, values)
             else:
