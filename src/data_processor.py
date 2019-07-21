@@ -228,6 +228,7 @@ class DataProcessor(object):
         css_select = "#content > section > div.group_lr.mab10 > div.group_r > p > em"
         total_student = int(soup.select_one(css_select).text.replace(",", ""))
         total_pages = total_student // max_show + 1
+        update_datas = []
 
         for k in range(total_pages):
             table_url = url + f"?offset={k*max_show}&max={max_show}"
@@ -235,7 +236,6 @@ class DataProcessor(object):
             table = soup.find("tbody")
             rows = table.find_all("tr")
 
-            update_datas = []
             for r in rows:
                 data = self.find_data(r, 0, type_, lec_id=lec_id)
                 if data is not None:
